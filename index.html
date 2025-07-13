@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adonay Tobar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="p-4 md:p-8">
+    <!-- Barra de Navegación -->
+    <nav class="navbar">
+        <div class="max-w-4xl mx-auto flex justify-center items-center">
+            <span class="navbar-title">AdonayTobar</span>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-facebook-blue-dark">Adonay Tobar - Gestor de Medidas</h1>
+
+        <!-- Sección de Láminas -->
+        <section class="mb-12 p-6 facebook-gray rounded-xl shadow-inner">
+            <h2 class="text-2xl font-semibold mb-6 text-facebook-blue">Gestión de Láminas</h2>
+
+            <div class="mb-4">
+                <table id="laminasTable" class="min-w-full bg-white rounded-lg overflow-hidden shadow-sm">
+                    <thead>
+                        <tr>
+                            <th class="w-1/2">Cantidad</th>
+                            <th class="w-1/2">Medida (metros)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="number" value="" min="1" step="1" class="input-field w-full" onchange="validateInput(this)"></td>
+                            <td><input type="number" value="" step="0.01" min="0.01" class="input-field w-full" onchange="validateInput(this)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button onclick="addRow('laminasTable')" class="btn btn-primary mb-6">Agregar Fila</button>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                <button onclick="processLaminas('display')" class="btn btn-primary flex-1">Ordenar y Mostrar Láminas</button>
+                <button onclick="processLaminas('sap')" class="btn btn-secondary flex-1">Formato SAP Láminas</button>
+            </div>
+
+            <div id="laminasOutput" class="mt-6 p-4 bg-white rounded-lg shadow-md hidden">
+                <h3 class="text-xl font-semibold mb-4 text-facebook-blue-dark">Resultados Láminas:</h3>
+                <div id="laminasResultContent" class="text-gray-700"></div>
+                <p id="laminasTotalMeters" class="mt-4 text-lg font-bold text-facebook-blue"></p>
+            </div>
+        </section>
+
+        <!-- Sección de Arquiteja -->
+        <section class="mb-12 p-6 facebook-gray rounded-xl shadow-inner">
+            <h2 class="text-2xl font-semibold mb-6 text-facebook-blue">Gestión de Arquiteja</h2>
+
+            <div class="mb-4">
+                <table id="arquitejaTable" class="min-w-full bg-white rounded-lg overflow-hidden shadow-sm">
+                    <thead>
+                        <tr>
+                            <th class="w-1/2">Cantidad</th>
+                            <th class="w-1/2">Medida (metros)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="number" value="" min="1" step="1" class="input-field w-full" onchange="validateInput(this)"></td>
+                            <td><input type="number" value="" step="0.01" min="0.01" class="input-field w-full" onchange="validateInput(this)"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button onclick="addRow('arquitejaTable')" class="btn btn-primary mb-6">Agregar Fila</button>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                <button onclick="processArquiteja('display')" class="btn btn-primary flex-1">Ordenar y Mostrar Arquiteja</button>
+                <button onclick="processArquiteja('sap')" class="btn btn-secondary flex-1">Formato SAP Arquiteja</button>
+            </div>
+
+            <div id="arquitejaOutput" class="mt-6 p-4 bg-white rounded-lg shadow-md hidden">
+                <h3 class="text-xl font-semibold mb-4 text-facebook-blue-dark">Resultados Arquiteja:</h3>
+                <div id="arquitejaResultContent" class="text-gray-700"></div>
+                <p id="arquitejaTotalMeters" class="mt-4 text-lg font-bold text-facebook-blue"></p>
+            </div>
+        </section>
+
+        <!-- Nueva Sección: Cálculo de Láminas para Techos Irregulares -->
+        <section class="p-6 facebook-gray rounded-xl shadow-inner">
+            <h2 class="text-2xl font-semibold mb-6 text-facebook-blue">Cálculo de Láminas para Techos Irregulares</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="ladoMayor" class="block text-gray-700 text-sm font-bold mb-2">Lado Mayor (metros):</label>
+                    <input type="number" id="ladoMayor" value="" step="0.01" min="0.01" class="input-field w-full" onchange="validateInput(this)">
+                </div>
+                <div>
+                    <label for="ladoMenor" class="block text-gray-700 text-sm font-bold mb-2">Lado Menor (metros):</label>
+                    <input type="number" id="ladoMenor" value="" step="0.01" min="0.01" class="input-field w-full" onchange="validateInput(this)">
+                </div>
+                <div class="md:col-span-2">
+                    <label for="cantidadLaminas" class="block text-gray-700 text-sm font-bold mb-2">Cantidad de Láminas:</label>
+                    <input type="number" id="cantidadLaminas" value="" min="1" step="1" class="input-field w-full" onchange="validateInput(this)">
+                </div>
+            </div>
+
+            <button onclick="calcularLaminasIrregulares()" class="btn btn-primary w-full mb-6">Calcular Longitudes de Láminas</button>
+
+            <div id="irregularLaminasOutput" class="mt-6 p-4 bg-white rounded-lg shadow-md hidden">
+                <h3 class="text-xl font-semibold mb-4 text-facebook-blue-dark">Longitudes de Láminas Calculadas:</h3>
+                <div id="irregularLaminasErrorMessage" class="text-red-500 mb-4 hidden"></div>
+                <ul id="listaLongitudes" class="list-disc list-inside text-gray-700 mb-4"></ul>
+
+                <h3 class="text-xl font-semibold mb-4 text-facebook-blue-dark">Formato SAP:</h3>
+                <div id="irregularLaminasSapContent" class="bg-gray-100 p-3 rounded-md mt-2"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
