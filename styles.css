@@ -1,0 +1,115 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F0F2F5; /* Facebook light gray background */
+    color: #1C1E21; /* Facebook dark text */
+    padding-top: 64px; /* Espacio para la barra de navegación fija */
+}
+
+.facebook-blue {
+    background-color: #1877F2; /* Facebook primary blue */
+}
+
+.facebook-blue-dark {
+    background-color: #4267B2; /* Facebook darker blue */
+}
+
+.facebook-gray {
+    background-color: #E4E6EB; /* Facebook light gray */
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #1877F2;
+}
+
+.btn-primary:hover {
+    background-color: #1567D2;
+}
+
+.btn-secondary {
+    background-color: #4267B2;
+}
+
+.btn-secondary:hover {
+    background-color: #3257A2;
+}
+
+.input-field {
+    padding: 8px;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+}
+
+.input-field:focus {
+    outline: none;
+    ring: 2px solid #93C5FD;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #E4E6EB;
+}
+
+th {
+    background-color: #F0F2F5;
+    font-weight: 600;
+    color: #65676B;
+}
+
+tr:hover {
+    background-color: #F0F2F5;
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1877F2;
+    color: white;
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+}
+
+.navbar-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(to right, #ffffff, #E4E6EB);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    .navbar-title {
+        font-size: 2.25rem;
+    }
+}
+
+.navbar-title:hover {
+    background: linear-gradient(to right, #ffffff, #F0F2F5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    transform: scale(1.05);
+}
